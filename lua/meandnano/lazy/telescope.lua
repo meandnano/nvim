@@ -4,11 +4,18 @@ return {
 	tag = "0.1.5",
 
 	dependencies = {
-		"nvim-lua/plenary.nvim"
+		"nvim-lua/plenary.nvim",
+		"smartpde/telescope-recent-files"
 	},
 
 	config = function()
-		require('telescope').setup({})
+		require('telescope').setup({
+			extensions = {
+				recent_files = {
+					only_cwd = true,
+				}
+			}
+		})
 
 		local builtin = require('telescope.builtin')
 		vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "search for file" })
