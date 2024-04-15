@@ -9,13 +9,18 @@ return {
 	},
 
 	config = function()
-		require('telescope').setup({
+		local tele = require('telescope')
+		tele.setup({
 			extensions = {
 				recent_files = {
 					only_cwd = true,
 				}
 			}
 		})
+
+		tele.load_extension('recent_files')
+
+		vim.keymap.set("n", "<Leader><Leader>", [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]])
 
 		local builtin = require('telescope.builtin')
 		vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "search for file" })
