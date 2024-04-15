@@ -34,6 +34,10 @@ return {
 			disable_netrw = false,
 			hijack_netrw = false,
 			on_attach = onAttachTree,
+			update_focused_file = {
+				enable = true,
+				update_cwd = true,
+			},
 		}
 
 		vim.keymap.set('n', '<leader>op', ':NvimTreeFocus<CR>', { desc = "Focus NvimTree" })
