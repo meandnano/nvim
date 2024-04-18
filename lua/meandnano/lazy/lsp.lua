@@ -27,6 +27,7 @@ return {
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
+				-- LSP
 				'gopls',
 				'dockerls',
 				'docker_compose_language_service',
@@ -48,6 +49,33 @@ return {
 					}
 				end,
 
+				["gopls"] = function()
+					require("lspconfig").gopls.setup({
+						settings = {
+							gopls = {
+								templateExtensions = { "tmpl", "tpl", "gotpl", "gohtml" },
+							},
+						},
+					})
+				end,
+
+				["html"] = function()
+					require("lspconfig").html.setup({
+						capabilities = capabilities,
+						settings = {
+							format = {
+								templating = true,
+								wrapLineLength = 120,
+								wrapAttributes = 'auto',
+							},
+							hover = {
+								documentation = true,
+								references = true,
+							},
+						}
+					})
+				end,
+
 				["lua_ls"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.lua_ls.setup {
@@ -61,10 +89,6 @@ return {
 							}
 						}
 					}
-				end,
-
-				["hydra_lsp"] = function()
-
 				end,
 			}
 		})
