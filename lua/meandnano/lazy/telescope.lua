@@ -23,8 +23,8 @@ return {
 		vim.keymap.set("n", "<Leader><Leader>", [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]])
 
 		local builtin = require('telescope.builtin')
-		vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "search for file" })
-		vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = "search for file under git repo" })
+		vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "search for file" })
+		vim.keymap.set('n', '<leader>pg', builtin.git_files, { desc = "search for file under git repo" })
 
 		-- Grep within project
 		vim.keymap.set('n', '<leader>ps', function()

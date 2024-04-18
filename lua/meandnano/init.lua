@@ -29,9 +29,29 @@ autocmd('LspAttach', {
 		vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts("go to next diagnostic"))
 		vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts("go to previous diagnostic"))
 
+		vim.keymap.set('n', '<leader>cff',
+			function()
+				local builtin = require('telescope.builtin')
+				builtin.lsp_document_symbols({
+					symbols = { 'function', 'method', 'constant', 'struct', 'interface' },
+					show_line = true,
+				})
+			end,
+			{ desc = "show functions" }
+		)
+
 		vim.keymap.set('n', '<space>cfb', function()
 			vim.lsp.buf.format { async = true }
 		end, opts("format buffer"))
+	end
+})
+
+autocmd({ 'BufRead', 'BufNewFile' }, {
+	group = MeandnanoGroup,
+	pattern = { '*.gohtml' },
+	callback = function(e)
+		vim.bo.filetype = 'gotmpl'
+		vim.bo.syntax = 'html'
 	end
 })
 
@@ -40,6 +60,19 @@ autocmd('BufWritePre', {
 	group = MeandnanoGroup,
 	pattern = { '*.go', '*.lua' },
 	callback = function(e)
+		local is_Modified = function()
+			local buf          = vim.api.nvim_get_current_buf()
+			-- Check if buffer is actually modified, and only if it is modified,
+			-- execute the :CMakeGenerate, otherwise return. This is to avoid unnecessary regenerattion
+			local buf_modified = vim.api.nvim_buf_get_option(buf, 'modified')
+			return buf_modified
+		end
+
+		if not is_Modified() then
+			print("Buffer is not modified")
+			return
+		end
+
 		-- go specific
 		if vim.bo.filetype == 'go' then
 			-- optimize imports
@@ -62,6 +95,6 @@ autocmd('BufWritePre', {
 		end
 
 		-- format on save
-		vim.lsp.buf.format { async = true }
+		vim.lsp.buf.format { async = false }
 	end
 })
