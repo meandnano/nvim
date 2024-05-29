@@ -5,9 +5,8 @@ vim.keymap.set("n", "<leader>fu", vim.cmd.Ex, { desc = "go to directory" })
 vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "preserve buffer on paste" })
 
 -- yank into the system buffer (next greatest remap)
-vim.keymap.set("n", "<leader>y", "\"+y", { desc = "yank to clipboard" })
-vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = "yank to clipboard" })
-vim.keymap.set("v", "<leader>y", "\"+y", { desc = "yank to clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "yank to clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "yank to clipboard" })
 
 -- move selection up/down
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv") -- down
@@ -30,8 +29,8 @@ vim.keymap.set("n", "<leader>cfb", function()
 	vim.lsp.buf.format()
 end, { desc = "format buffer" })
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+-- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "quickfix next" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "quickfix prev" })
 

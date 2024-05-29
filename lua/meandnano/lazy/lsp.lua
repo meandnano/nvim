@@ -35,12 +35,14 @@ return {
 				'jsonls',
 				'marksman', -- markdown
 				'taplo', -- TOML
-				'hydra_lsp', -- YAML
+				'yamlls', -- YAML
 				'bufls', -- BUF's protobuf LSP
 				'bashls',
 				'tsserver',
 				'eslint',
 				'lua_ls',
+				'ocamllsp',
+				'pyright',
 			},
 			handlers = {
 				function(server_name) -- default handler (optional)
@@ -57,6 +59,18 @@ return {
 							},
 						},
 					})
+				end,
+
+				["yamlls"] = function()
+					local cfg = require("yaml-companion").setup({
+						-- Built in file matchers
+						builtin_matchers = {
+							-- Detects Kubernetes files based on content
+							kubernetes = { enabled = true },
+							cloud_init = { enabled = false }
+						},
+					})
+					require("lspconfig").yamlls.setup(cfg)
 				end,
 
 				["html"] = function()
