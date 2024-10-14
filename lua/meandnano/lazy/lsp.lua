@@ -38,11 +38,12 @@ return {
 				'yamlls', -- YAML
 				'bufls', -- BUF's protobuf LSP
 				'bashls',
-				'tsserver',
+				'ts_ls',
 				'eslint',
 				'lua_ls',
-				'ocamllsp',
 				'pyright',
+				'zls', -- Zig
+				'clangd', -- C/C++, https://clangd.llvm.org/installation.html
 			},
 			handlers = {
 				function(server_name) -- default handler (optional)
@@ -102,6 +103,32 @@ return {
 								}
 							}
 						}
+					}
+				end,
+
+				["zls"] = function()
+					require("lspconfig").zls.setup({
+						capabilities = capabilities,
+					})
+				end,
+
+				["clangd"] = function()
+					local lspconfig = require("lspconfig")
+					lspconfig.clangd.setup {
+						capabilities = capabilities,
+						cmd = { "clangd",
+							"--background-index",
+							"--clang-tidy",
+							"--log=verbose",
+							"--offset-encoding=utf-16",
+						},
+						filetypes = { "c", "cpp", "objc", "objcpp" },
+						init_options = {
+							clangdFileStatus = true,
+							usePlaceholders = true,
+							completeUnimported = true,
+							semanticHighlighting = true,
+						},
 					}
 				end,
 			}

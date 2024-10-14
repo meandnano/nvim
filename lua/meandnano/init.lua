@@ -58,7 +58,7 @@ autocmd({ 'BufRead', 'BufNewFile' }, {
 -- On save
 autocmd('BufWritePre', {
 	group = MeandnanoGroup,
-	pattern = { '*.go', '*.lua' },
+	pattern = { '*.go', '*.lua', '*.ts', '*.js' },
 	callback = function(e)
 		local is_Modified = function()
 			local buf          = vim.api.nvim_get_current_buf()
