@@ -14,7 +14,6 @@ autocmd('LspAttach', {
 		local opts = function(description) return { buffer = e.buf, desc = description } end
 
 		vim.keymap.set('n', '<leader>cd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts("go to definition"))
-		--vim.keymap.set('n', '<leader>cD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts("go to declaration"))
 		vim.keymap.set('n', '<leader>ci', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts("go to implementation"))
 		vim.keymap.set('n', '<leader>co', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts("go to type definition"))
 		vim.keymap.set('n', '<leader>cD', '<cmd>lua vim.lsp.buf.references()<cr>', opts("go to references"))

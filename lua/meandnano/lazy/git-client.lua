@@ -1,10 +1,4 @@
--- return {
--- 	"tpope/vim-fugitive",
--- 	config = function()
--- 		vim.keymap.set("n", "<leader>gg", vim.cmd.Git)
--- 	end
--- }
-
+-- Neogit is a better (than Fugitive) clone of Magit
 return {
 	"NeogitOrg/neogit",
 	dependencies = {

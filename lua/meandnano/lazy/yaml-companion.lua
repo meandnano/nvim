@@ -1,3 +1,4 @@
+-- YAML schema validation plugin (k8s resources are autodetected)
 return {
 	"someone-stole-my-name/yaml-companion.nvim",
 	requires = {
